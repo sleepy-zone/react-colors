@@ -1,15 +1,29 @@
 import * as React from 'react';
-import styles from './index.module.css';
+import { useEffect, useState } from 'react';
+import { SketchPicker } from 'react-color';
 
 interface ComponentProps {
-  /** Title for ReactColors. */
-  title: string;
+  value: string;
+  onChange: any;
 }
 
 export default function ReactColors(props: ComponentProps) {
-  const { title = 'Hello World!' } = props;
+  const { value, onChange } = props;
+  const [color, setColor] = useState();
+
+  const handleChange = (v) => {
+    console.log(v);
+    setColor(v.rgb);
+    onChange && onChange(v);
+  }
+
+  useEffect(() => {
+    if (value) {
+      setColor(value);
+    }
+  }, [value]);
 
   return (
-    <div className={styles.ReactColors}>{title}</div>
+    <SketchPicker color={color} onChangeComplete={handleChange} />
   );
 }

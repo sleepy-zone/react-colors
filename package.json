@@ -45,18 +45,20 @@
     "component"
   ],
   "dependencies": {
+    "@ice/jsx-runtime": "^0.2.0",
     "@swc/helpers": "^0.5.1",
-    "@ice/jsx-runtime": "^0.2.0"
+    "react-color": "^2.19.3"
   },
   "devDependencies": {
     "@applint/spec": "^1.2.3",
     "@ice/pkg": "^1.0.0",
     "@ice/pkg-plugin-docusaurus": "^1.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-color": "^3.0.10",
+    "@types/react-dom": "^18.0.0",
     "eslint": "^8.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
     "stylelint": "^15.0.0"
   },
   "peerDependencies": {
