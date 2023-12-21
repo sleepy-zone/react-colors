@@ -27,6 +27,9 @@
       .rc-input-number {
         border: none;
         height: 24px;
+        &-focused {
+          box-shadow: none;
+        }
       }
     }
     .rc-input-prefix {
@@ -41,16 +44,11 @@
       color: #111;
       font-size: 12px;
     }
-    input:focus-within {
-      border: none;
-      outline: none;
-    }
 
     &-types {
       flex: 1;
       display: flex;
       align-items: center;
-      min-width: 0;
     }
     &-type {
       display: flex;

@@ -6,27 +6,32 @@ import ColorInput from './components/ColorInput';
 
 import './rc-color-picker.less';
 import './index.less';
-
-export type ColorsChangeEventHandler = (
-  color: Color
-) => void;
-
 export interface ComponentProps {
   defaultValue?: string | Color;
   value?: string | Color;
-  onChange?: ColorsChangeEventHandler;
+  onChange?: (color: Color) => void;
   [key: string]: any;
+}
+
+const handleColor = (c: string | Color) => {
+  if (typeof c === 'string') return new Color(c);
+  return c;
 }
 
 export default function ReactColors(props: ComponentProps) {
   const { defaultValue, value, onChange } = props;
-  const [color, setColor] = useState<Color>();
+  const [color, setColor] = useState<Color>(handleColor(defaultValue));
 
   const handleChange = (v: Color) => {
     setColor(v);
-    console.log(v, v.toHexString());
     onChange && onChange(v);
   }
+
+  useEffect(() => {
+    if (value) {
+      setColor(handleColor(value));
+    }
+  }, [value]);
 
   return (
     <ColorPicker
@@ -36,7 +41,7 @@ export default function ReactColors(props: ComponentProps) {
         <div className="rcs-panel">
           <div>
             {innerPanel}
-            <ColorInput value={color} />
+            <ColorInput value={color} onChange={handleChange} />
           </div>
         </div>
       )}

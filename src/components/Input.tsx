@@ -18,3 +18,5 @@ export const Input = (props: InputProps) => {
     <RcInput prefixCls="rc-input" {...props} />
   );
 }
+
+export { ValueType } from 'rc-input-number';
