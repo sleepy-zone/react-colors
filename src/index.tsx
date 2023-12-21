@@ -1,29 +1,45 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { SketchPicker } from 'react-color';
+import ColorPicker from '@rc-component/color-picker';
+import { Color } from '@rc-component/color-picker';
+import ColorInput from './components/ColorInput';
 
-interface ComponentProps {
-  value: string;
-  onChange: any;
+import './rc-color-picker.less';
+import './index.less';
+
+export type ColorsChangeEventHandler = (
+  color: Color
+) => void;
+
+export interface ComponentProps {
+  defaultValue?: string | Color;
+  value?: string | Color;
+  onChange?: ColorsChangeEventHandler;
+  [key: string]: any;
 }
 
 export default function ReactColors(props: ComponentProps) {
-  const { value, onChange } = props;
-  const [color, setColor] = useState();
+  const { defaultValue, value, onChange } = props;
+  const [color, setColor] = useState<Color>();
 
-  const handleChange = (v) => {
-    console.log(v);
-    setColor(v.rgb);
+  const handleChange = (v: Color) => {
+    setColor(v);
+    console.log(v, v.toHexString());
     onChange && onChange(v);
   }
 
-  useEffect(() => {
-    if (value) {
-      setColor(value);
-    }
-  }, [value]);
-
   return (
-    <SketchPicker color={color} onChangeComplete={handleChange} />
+    <ColorPicker
+      value={color}
+      onChange={handleChange}
+      panelRender={(innerPanel: React.ReactElement) => (
+        <div className="rcs-panel">
+          <div>
+            {innerPanel}
+            <ColorInput value={color} />
+          </div>
+        </div>
+      )}
+    />
   );
 }
