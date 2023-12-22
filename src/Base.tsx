@@ -10,6 +10,7 @@ export interface ComponentProps {
   defaultValue?: string | Color;
   value?: string | Color;
   onChange?: (color: Color) => void;
+  panelRender?: (panel: React.ReactElement) => React.ReactElement;
   [key: string]: any;
 }
 
@@ -18,8 +19,8 @@ const handleColor = (c: string | Color) => {
   return c;
 }
 
-export default function ReactColors(props: ComponentProps) {
-  const { defaultValue, value, onChange } = props;
+export default function Base(props: ComponentProps) {
+  const { defaultValue, value, onChange, panelRender } = props;
   const [color, setColor] = useState<Color>(handleColor(defaultValue));
 
   const handleChange = (v: Color) => {
@@ -37,14 +38,18 @@ export default function ReactColors(props: ComponentProps) {
     <ColorPicker
       value={color}
       onChange={handleChange}
-      panelRender={(innerPanel: React.ReactElement) => (
-        <div className="rcs-panel">
-          <div>
+      panelRender={(innerPanel: React.ReactElement) => {
+        const panel = (
+          <div className="rcs-panel">
             {innerPanel}
             <ColorInput value={color} onChange={handleChange} />
           </div>
-        </div>
-      )}
+        );
+        if (typeof panelRender === 'function') {
+          return panelRender(panel);
+        }
+        return panel;
+      }}
     />
   );
 }

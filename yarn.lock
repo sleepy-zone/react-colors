@@ -2147,9 +2147,9 @@
   resolved "https://registry.npmmirror.com/@polka/url/-/url-1.0.0-next.24.tgz#58601079e11784d20f82d0585865bb42305c4df3"
   integrity sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==
 
-"@rc-component/color-picker@^1.4.1":
+"@rc-component/color-picker@~1.4.1":
   version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@rc-component/color-picker/-/color-picker-1.4.1.tgz#dcab0b660e9c4ed63a7582db68ed4a77c862cb93"
+  resolved "https://registry.npmmirror.com/@rc-component/color-picker/-/color-picker-1.4.1.tgz#dcab0b660e9c4ed63a7582db68ed4a77c862cb93"
   integrity sha512-vh5EWqnsayZa/JwUznqDaPJz39jznx/YDbyBuVJntv735tKXKwEUZZb2jYEldOg+NKWZwtALjGMrNeGBmqFoEw==
   dependencies:
     "@babel/runtime" "^7.10.1"
@@ -8899,9 +8899,9 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-rc-input-number@^8.6.1:
+rc-input-number@~8.6.1:
   version "8.6.1"
-  resolved "https://registry.yarnpkg.com/rc-input-number/-/rc-input-number-8.6.1.tgz#f0ebc66c34c8775a3245953521abcbd240d7fe03"
+  resolved "https://registry.npmmirror.com/rc-input-number/-/rc-input-number-8.6.1.tgz#f0ebc66c34c8775a3245953521abcbd240d7fe03"
   integrity sha512-gaAMUKtUKLktJ3Yx93tjgYY1M0HunnoqzPEqkb9//Ydup4DcG0TFL9yHBA3pgVdNIt5f0UWyHCgFBj//JxeD6A==
   dependencies:
     "@babel/runtime" "^7.10.1"
@@ -8910,9 +8910,9 @@ rc-input-number@^8.6.1:
     rc-input "~1.4.0"
     rc-util "^5.28.0"
 
-rc-input@^1.4.2, rc-input@~1.4.0:
+rc-input@~1.4.0, rc-input@~1.4.2:
   version "1.4.2"
-  resolved "https://registry.yarnpkg.com/rc-input/-/rc-input-1.4.2.tgz#d2ca7dd2061f9113c07cc9789f17885cf75ec316"
+  resolved "https://registry.npmmirror.com/rc-input/-/rc-input-1.4.2.tgz#d2ca7dd2061f9113c07cc9789f17885cf75ec316"
   integrity sha512-cKmXU5HiEq20gBwkyzu6FPUcDtVA5004G3FzNgfFpV2jHXXtE8VhYHTAgR6UAzKd2C5Fy2uYgAckQJWQKxA2Pw==
   dependencies:
     "@babel/runtime" "^7.11.1"

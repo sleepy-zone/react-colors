@@ -117,3 +117,41 @@
     }
   }
 }
+
+.rcs-gradient {
+  &-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+}
+
+.rcs-slider {
+  flex: 1;
+  &-main {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    border: 1px solid #aaaaaa;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  &-stop {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #aaaaaa;
+    cursor: pointer;
+  }
+}
+
+.rcs-angle {
+  display: flex;
+  align-items: center;
+  margin-left: 6px;
+  cursor: pointer;
+}
