@@ -1,15 +1,9 @@
 # react-colors
 
-组件功能描述
+颜色选择器，同时支持纯色和渐变色。
 
 ## Install
 
 ```bash
 $ npm i react-colors --save
-```
-
-## Usage
-
-```jsx
-import ReactColors from 'react-colors';
 ```

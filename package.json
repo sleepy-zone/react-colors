@@ -1,7 +1,7 @@
 {
   "name": "react-colors",
   "version": "0.1.0",
-  "description": "组件功能描述",
+  "description": "颜色选择器，同时支持纯色和渐变色。",
   "files": [
     "esm",
     "es2017",

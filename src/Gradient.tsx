@@ -46,13 +46,14 @@ type LinearGradient = {
 }
 
 type LinearGradientProps = {
+  type: 'linear' | 'radial';
   defaultValue?: LinearGradient;
   value?: LinearGradient;
   onChange?: (lg: LinearGradient) => void;
 }
 
 export default function LinearGradient (props: LinearGradientProps) {
-  const { defaultValue, value, onChange } = props;
+  const { defaultValue, value, type = 'linear', onChange } = props;
   const _defaultValue = defaultValue || defaultLinearGradientValue;
   const [gradient, setGradient] = useState(_defaultValue);
   const [activeColorStop, setActiveColorStop] = useState<ISTOP>(_defaultValue.colorStops[0]);
@@ -147,17 +148,19 @@ export default function LinearGradient (props: LinearGradientProps) {
           <div className="rcs-gradient-header">
             <ColorStopSlider
               colorStop={activeColorStop}
-              angle={gradient?.angle}
               colorStops={gradient?.colorStops}
               colorStopAdd={handleColorStopAdd}
               colorStopRemove={handleColorStopRemove}
               onColorStopChange={setActiveColorStop}
               colorStopUpdate={handleColorStopUpdate}
             />
-            <GradientAngel
-              angle={gradient?.angle}
-              onChange={handleAngleChange}
-            />
+            {
+              type === 'linear' ?
+              <GradientAngel
+                angle={gradient?.angle}
+                onChange={handleAngleChange}
+              /> : null
+            }
           </div>
           {innerPanel}
         </div>
