@@ -1,5 +1,5 @@
 {
-  "name": "react-colors",
+  "name": "@sleepy__zone/react-colors",
   "version": "0.1.0",
   "description": "颜色选择器，同时支持纯色和渐变色。",
   "files": [
@@ -68,5 +68,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleepy-zone/react-colors.git"
+  },
+  "author": "sleepy__zone",
+  "bugs": {
+    "url": "https://github.com/sleepy-zone/react-colors/issues"
+  },
+  "homepage": "https://github.com/sleepy-zone/react-colors#readme"
 }
