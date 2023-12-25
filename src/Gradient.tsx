@@ -144,7 +144,7 @@ export default function LinearGradient (props: LinearGradientProps) {
       value={activeColorStop?.color}
       onChange={handleColorChange}
       panelRender={(innerPanel) => (
-        <div className="rcs-gradient">
+        <div className="rcs-gradient rcs">
           <div className="rcs-gradient-header">
             <ColorStopSlider
               colorStop={activeColorStop}

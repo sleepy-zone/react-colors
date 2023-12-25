@@ -40,7 +40,7 @@ export default function Base(props: ComponentProps) {
       onChange={handleChange}
       panelRender={(innerPanel: React.ReactElement) => {
         const panel = (
-          <div className="rcs-panel">
+          <div className="rcs-panel rcs">
             {innerPanel}
             <ColorInput value={color} onChange={handleChange} />
           </div>
