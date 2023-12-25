@@ -5,5 +5,5 @@
 ## Install
 
 ```bash
-$ npm i react-colors --save
+$ npm i @sleepy/react-colors --save
 ```

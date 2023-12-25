@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 const ColorTypeOptions = [
   { value: 'HEX', label: 'HEX' },
   { value: 'RGB', label: 'RGB' },
-  { value: 'HSB', label: 'HSB' }
+  // { value: 'HSB', label: 'HSB' }
 ];
 
 export type ColorType = 'HEX' | 'RGB' | 'HSB';

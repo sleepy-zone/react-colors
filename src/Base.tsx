@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import ColorPicker from '@rc-component/color-picker';
-import { Color } from '@rc-component/color-picker';
+import { Color, getColorStringByFormat } from './utils';
 import ColorInput from './components/ColorInput';
+import type { ColorFormat } from './utils';
 
 import './rc-color-picker.less';
 import './index.less';
+
+export { Color } from '@rc-component/color-picker';
 export interface ComponentProps {
+  format?: ColorFormat;
   defaultValue?: string | Color;
   value?: string | Color;
-  onChange?: (color: Color) => void;
+  onChange?: (value: string) => void;
   panelRender?: (panel: React.ReactElement) => React.ReactElement;
   [key: string]: any;
 }
@@ -20,12 +24,12 @@ const handleColor = (c: string | Color) => {
 }
 
 export default function Base(props: ComponentProps) {
-  const { defaultValue, value, onChange, panelRender } = props;
+  const { format = 'rgb', defaultValue, value, onChange, panelRender } = props;
   const [color, setColor] = useState<Color>(handleColor(defaultValue));
 
   const handleChange = (v: Color) => {
     setColor(v);
-    onChange && onChange(v);
+    onChange && onChange(getColorStringByFormat(v, format));
   }
 
   useEffect(() => {

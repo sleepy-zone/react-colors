@@ -131,6 +131,7 @@
 
 .rcs-slider {
   flex: 1;
+  margin-bottom: 2px;
   &-main {
     position: relative;
     width: 100%;
@@ -175,14 +176,27 @@
     border-radius: 50%;
     margin-right: 6px;
     cursor: pointer;
+    border: 1px solid #cccccc;
+    &.active {
+      border: 1px solid #ff7916;
+    }
     &.solid {
       background: #999999;
+      &.active {
+        background: #ff7916;
+      }
     }
     &.linear {
       background: linear-gradient(0deg, #eeeeee, #999999);
+      &.active {
+        background: linear-gradient(0deg, #eeeeee, #ff7916);
+      }
     }
     &.radial {
       background: radial-gradient(#eeeeee, #999999);
+      &.active {
+        background: radial-gradient(#eeeeee, #ff7916);
+      }
     }
   }
 }

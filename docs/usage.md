@@ -12,7 +12,7 @@ export default function App () {
   const [color, setColor] = useState('#000000');
   return (
     <div>
-      <ColorPicker value={color} onChange={setColor} />
+      <ColorPicker onChange={console.log} />
     </div>
   )
 }

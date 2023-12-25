@@ -1,5 +1,5 @@
 ---
-sidebar_label: 完整
+sidebar_label: 使用
 ---
 
 ```jsx preview
@@ -9,7 +9,7 @@ import { useState } from 'react';
 export default function App () {
   return (
     <div>
-      <ColorsPicker />
+      <ColorsPicker onChange={console.log}/>
     </div>
   )
 }

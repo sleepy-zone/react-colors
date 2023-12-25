@@ -64,6 +64,7 @@ export default function ColorStopSlider (props: ColorStopSliderProps) {
     e.preventDefault();
     e.stopPropagation();
     if (colorStopDragRef.current.enable) {
+      // @ts-ignore
       const offset = colorStop.offset + (e.clientX - colorStopDragRef.current.lastX) / e.target.parentNode.clientWidth;
       colorStopDragRef.current.lastX = e.clientX;
       colorStopUpdate({

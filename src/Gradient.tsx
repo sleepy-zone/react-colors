@@ -3,24 +3,21 @@ import { useState, useEffect } from 'react';
 import ColorStopSlider from './components/ColorStopSlider';
 import type { ISTOP } from './components/ColorStopSlider';
 import Base from './Base';
-import { Color } from '@rc-component/color-picker';
+import { ColorFormat } from './utils';
 import GradientAngel from './components/GradientAngle';
 
-const defaultStops = [
-  {
-    color: '#ff0000',
-    offset: 0
-  },
-  {
-    color: '#ffffff',
-    offset: 1
-  }
-];
-
-const defaultLinearGradientValue = {
-  colorStops: defaultStops,
-  angle: 90
-}
+const getDefaultStops = (format: ColorFormat) => {
+  return [
+    {
+      color: format === 'rgb' ? 'rgb(212, 22, 22)' : '#ff0000',
+      offset: 0
+    },
+    {
+      color: format === 'rgb' ? 'rgb(255, 255, 255)' : '#ffffff',
+      offset: 1
+    }
+  ]
+};
 
 const sortListByOffset = (list: ISTOP[]) => {
   list.sort((a, b) => {
@@ -40,20 +37,25 @@ const handleStopOffset = (offset: number) => {
   return offset;
 }
 
-type LinearGradient = {
+export type LinearGradient = {
   colorStops: ISTOP[];
   angle: number;
 }
 
 type LinearGradientProps = {
-  type: 'linear' | 'radial';
+  format?: ColorFormat;
+  type?: 'linear' | 'radial';
   defaultValue?: LinearGradient;
   value?: LinearGradient;
   onChange?: (lg: LinearGradient) => void;
 }
 
 export default function LinearGradient (props: LinearGradientProps) {
-  const { defaultValue, value, type = 'linear', onChange } = props;
+  const { format = 'rgb', defaultValue, value, type = 'linear', onChange } = props;
+  const defaultLinearGradientValue = {
+    colorStops: getDefaultStops(format),
+    angle: 90
+  }
   const _defaultValue = defaultValue || defaultLinearGradientValue;
   const [gradient, setGradient] = useState(_defaultValue);
   const [activeColorStop, setActiveColorStop] = useState<ISTOP>(_defaultValue.colorStops[0]);
@@ -101,11 +103,11 @@ export default function LinearGradient (props: LinearGradientProps) {
     }
   }
 
-  const handleColorChange = (color: Color) => {
+  const handleColorChange = (color: string) => {
     const index = gradient.colorStops.findIndex((item: ISTOP) => item === activeColorStop);
     const colorStop = {
       ...activeColorStop,
-      color: color.toHex8String()
+      color
     };
     if (index !== -1) {
       const colorStops: ISTOP[] = [...gradient.colorStops];
@@ -128,19 +130,18 @@ export default function LinearGradient (props: LinearGradientProps) {
   useEffect(() => {
     if (value) {
       setGradient(value);
-      const s = value.colorStops.find((item: ISTOP) => item === activeColorStop);
-      if (!s) {
-        setActiveColorStop(value.colorStops[0]);
-      }
     }
   }, [value]);
 
   useEffect(() => {
-    onChange && onChange(gradient);
+    if (gradient) {
+      onChange && onChange(gradient);
+    }
   }, [gradient]);
 
   return (
     <Base
+      format={format}
       value={activeColorStop?.color}
       onChange={handleColorChange}
       panelRender={(innerPanel) => (
