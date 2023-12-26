@@ -10,7 +10,8 @@ export default defineConfig({
         title: 'react-colors-beauty',
         navBarTitle: 'react-colors-beauty',
         navBarLogo: 'https://raw.githubusercontent.com/sleepy-zone/react-colors/main/assets/logo.png',
-        favicon: 'https://raw.githubusercontent.com/sleepy-zone/react-colors/main/assets/favicon.ico'
+        favicon: 'https://raw.githubusercontent.com/sleepy-zone/react-colors/main/assets/favicon.ico',
+        baseUrl: '/react-colors'
       }
     ]
   ],
