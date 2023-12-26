@@ -24,3 +24,7 @@ export const getColorStringByFormat = (color: Color, format: ColorFormat) => {
   }
   return '';
 }
+
+export const hasValue = (v: any) => {
+  return v !== undefined;
+}

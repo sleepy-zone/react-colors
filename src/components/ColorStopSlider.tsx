@@ -34,8 +34,8 @@ export default function ColorStopSlider (props: ColorStopSliderProps) {
       style.transform = 'translate(calc(-100% + 1px), -50%)';
     }
     if (stop === colorStop) {
-      style.width = '10px';
-      style.height = '10px';
+      style.width = '12px';
+      style.height = '12px';
     }
     return style;
   }

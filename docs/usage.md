@@ -1,18 +1,42 @@
 ---
-sidebar_label: 纯色
+sidebar_label: 使用
+sidebar_position: 1
 ---
 
-本 Demo 演示一行文字的用法。
+#
+
+一个完整的例子，同时支持纯色、线性渐变、径向渐变选择。
+
+1. 组件为完全受控模式
+2. 线性渐变支持配置色标（color stop）和角度（渐变方向）
+3. 径向渐变支持配置色标（color stop），暂不支持渐变中心配置
+
+关于渐变，可以参考[MDN CSS 渐变](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_images/Using_CSS_gradients)。
 
 ```jsx preview
-import { ColorPicker } from '@sleepy/react-colors';
+import { ColorsPicker } from '@sleepy/react-colors';
 import { useState } from 'react';
 
 export default function App () {
-  const [color, setColor] = useState('#000000');
+  const [value, setValue] = useState({ type: 'solid', color: 'rgba(212,22,22,0.8)' });
+
+  const calcBackStyle = () => {
+    switch(value?.type) {
+      case 'solid':
+        return value.color;
+      case 'linear':
+        return `linear-gradient(${value.gradient.angle}deg, ${value.gradient.colorStops.map(stop => `${stop.color} ${stop.offset * 100}%`)})`;
+      case 'radial':
+        return `radial-gradient(at 50% 50%, ${value.gradient.colorStops.map(stop => `${stop.color} ${stop.offset * 100}%`)})`;
+      default:
+        return '#fff';
+    }
+  } 
+
   return (
-    <div>
-      <ColorPicker onChange={console.log} />
+    <div style={{ display: 'flex' }}>
+      <ColorsPicker value={value} onChange={(v) => { console.log(v); setValue(v) }}/>
+      <div style={{ width: 258, height: 282, marginLeft: 16,  marginTop: 24, background: calcBackStyle() }} />
     </div>
   )
 }

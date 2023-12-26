@@ -6,17 +6,20 @@ import Base from './Base';
 import { ColorFormat } from './utils';
 import GradientAngel from './components/GradientAngle';
 
-const getDefaultStops = (format: ColorFormat) => {
-  return [
-    {
-      color: format === 'rgb' ? 'rgb(212, 22, 22)' : '#ff0000',
-      offset: 0
-    },
-    {
-      color: format === 'rgb' ? 'rgb(255, 255, 255)' : '#ffffff',
-      offset: 1
-    }
-  ]
+export const getDefaultLinearGradientValue = (format: ColorFormat) => {
+  return {
+    colorStops: [
+      {
+        color: format === 'rgb' ? 'rgb(212, 22, 22)' : '#ff0000',
+        offset: 0
+      },
+      {
+        color: format === 'rgb' ? 'rgb(255, 255, 255)' : '#ffffff',
+        offset: 1
+      }
+    ],
+    angle: 90
+  }
 };
 
 const sortListByOffset = (list: ISTOP[]) => {
@@ -45,26 +48,21 @@ export type LinearGradient = {
 type LinearGradientProps = {
   format?: ColorFormat;
   type?: 'linear' | 'radial';
-  defaultValue?: LinearGradient;
   value?: LinearGradient;
   onChange?: (lg: LinearGradient) => void;
 }
 
 export default function LinearGradient (props: LinearGradientProps) {
-  const { format = 'rgb', defaultValue, value, type = 'linear', onChange } = props;
-  const defaultLinearGradientValue = {
-    colorStops: getDefaultStops(format),
-    angle: 90
-  }
-  const _defaultValue = defaultValue || defaultLinearGradientValue;
-  const [gradient, setGradient] = useState(_defaultValue);
-  const [activeColorStop, setActiveColorStop] = useState<ISTOP>(_defaultValue.colorStops[0]);
+  const { format = 'rgb', value, type = 'linear', onChange } = props;
+  const defaultValue = getDefaultLinearGradientValue(format);
+  const [gradient, setGradient] = useState(defaultValue);
+  const [activeColorStop, setActiveColorStop] = useState<ISTOP>(defaultValue.colorStops[0]);
 
   const handleColorStopAdd = (stop: ISTOP) => {
     const colorStops: ISTOP[] = [...gradient.colorStops];
     colorStops.push(stop);
     sortListByOffset(colorStops);
-    setGradient({
+    onChange?.({
       ...gradient,
       colorStops
     });
@@ -81,7 +79,7 @@ export default function LinearGradient (props: LinearGradientProps) {
     if (index !== -1) {
       colorStops.splice(index, 1, _stop);
       sortListByOffset(colorStops);
-      setGradient({
+      onChange?.({
         ...gradient,
         colorStops
       });
@@ -95,11 +93,10 @@ export default function LinearGradient (props: LinearGradientProps) {
     if (index !== -1) {
       const colorStops: ISTOP[] = [...gradient.colorStops];
       colorStops.splice(index, 1);
-      setGradient({
+      onChange?.({
         ...gradient,
         colorStops
       });
-      setActiveColorStop(colorStops[0]);
     }
   }
 
@@ -112,7 +109,7 @@ export default function LinearGradient (props: LinearGradientProps) {
     if (index !== -1) {
       const colorStops: ISTOP[] = [...gradient.colorStops];
       colorStops.splice(index, 1, colorStop);
-      setGradient({
+      onChange?.({
         ...gradient,
         colorStops
       });
@@ -121,23 +118,24 @@ export default function LinearGradient (props: LinearGradientProps) {
   }
 
   const handleAngleChange = (angle: number) => {
-    setGradient({
+    onChange?.({
       ...gradient,
       angle
     });
   }
 
   useEffect(() => {
-    if (value) {
-      setGradient(value);
-    }
-  }, [value]);
+    const active = gradient.colorStops.find(item => item === activeColorStop);
+    if (!active) setActiveColorStop(gradient.colorStops[0]);
+  }, [gradient]);
 
   useEffect(() => {
-    if (gradient) {
-      onChange && onChange(gradient);
+    if (value) {
+      setGradient(value);
+    } else {
+      setGradient(defaultValue);
     }
-  }, [gradient]);
+  }, [value]);
 
   return (
     <Base

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import ColorPicker from '@rc-component/color-picker';
-import { Color, getColorStringByFormat } from './utils';
+import { Color, getColorStringByFormat, hasValue } from './utils';
 import ColorInput from './components/ColorInput';
 import type { ColorFormat } from './utils';
 
@@ -11,7 +11,6 @@ import './index.less';
 export { Color } from '@rc-component/color-picker';
 export interface ComponentProps {
   format?: ColorFormat;
-  defaultValue?: string | Color;
   value?: string | Color;
   onChange?: (value: string) => void;
   panelRender?: (panel: React.ReactElement) => React.ReactElement;
@@ -23,18 +22,24 @@ const handleColor = (c: string | Color) => {
   return c;
 }
 
+export const getDefaultColorValue = (format: ColorFormat) => {
+  return format === 'rgb' ? 'rgb(212, 22, 22)' : '#ff0000';
+} 
+
 export default function Base(props: ComponentProps) {
-  const { format = 'rgb', defaultValue, value, onChange, panelRender } = props;
-  const [color, setColor] = useState<Color>(handleColor(defaultValue));
+  const { format = 'rgb', value, onChange, panelRender } = props;
+  const defaultValue = handleColor(getDefaultColorValue(format));
+  const [color, setColor] = useState<Color>(defaultValue);
 
   const handleChange = (v: Color) => {
-    setColor(v);
     onChange && onChange(getColorStringByFormat(v, format));
   }
 
   useEffect(() => {
-    if (value) {
+    if (hasValue(value)) {
       setColor(handleColor(value));
+    } else {
+      setColor(defaultValue);
     }
   }, [value]);
 

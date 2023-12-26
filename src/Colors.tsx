@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Base from './Base';
-import Gradient from './Gradient';
+import Base, { getDefaultColorValue } from './Base';
+import Gradient, { getDefaultLinearGradientValue } from './Gradient';
 import type { LinearGradient } from './Gradient';
 import { ColorFormat } from './utils';
 
@@ -11,7 +11,6 @@ type ColorsValue = { type: ColorType, color?: string, gradient?: LinearGradient 
 
 export type ColorsProps = {
   format?: ColorFormat
-  defaultValue?: ColorsValue;
   value?: ColorsValue;
   onChange?: (v: ColorsValue) => void;
 }
@@ -32,35 +31,33 @@ const Types = [
 ]
 
 export default function Colors (props: ColorsProps) {
-  const { format = 'rgb', defaultValue, value, onChange } = props;
+  const { format = 'rgb', value, onChange } = props;
   const [type, setType] = useState<ColorType>('solid');
-  const [innerValue, setInnerValue] = useState<ColorsValue>(defaultValue);
 
   const handleSolidChange = (color: string) => {
     const v: ColorsValue = { type: 'solid', color };
-    setInnerValue(v);
     onChange?.(v);
   }
 
   const handleGradientChange = (gradient: LinearGradient, type: ColorType) => {
     const v: ColorsValue = { type, gradient };
-    setInnerValue(v);
     onChange?.(v);
   }
 
   useEffect(() => {
-    setInnerValue(null);
-  }, [type]);
-
-  useEffect(() => {
-    onChange?.(innerValue);
-  }, [innerValue]);
-
-  useEffect(() => {
-    if (value) {
-      setInnerValue(value);
+    const v: ColorsValue = {
+      ...value,
+      type,
+    };
+    if (type === 'solid') {
+      delete v.gradient;
+      if (!v.color) v.color = getDefaultColorValue(format);
+    } else {
+      delete v.color;
+      if (!v.gradient) v.gradient = getDefaultLinearGradientValue(format);
     }
-  }, [value]);
+    onChange?.(v);
+  }, [type]);
 
   return (
     <div className="rcs-all rcs">
@@ -79,7 +76,7 @@ export default function Colors (props: ColorsProps) {
         type === 'solid' ? 
         <Base
           format={format}
-          value={innerValue?.color}
+          value={value?.color}
           onChange={handleSolidChange}
         /> : null 
       }
@@ -88,7 +85,7 @@ export default function Colors (props: ColorsProps) {
         <Gradient
           format={format}
           type="linear"
-          value={innerValue?.gradient}
+          value={value?.gradient}
           onChange={(v) => { handleGradientChange(v, 'linear') }}
         /> : null 
       }
@@ -97,7 +94,7 @@ export default function Colors (props: ColorsProps) {
         <Gradient
           format={format}
           type="radial"
-          value={innerValue?.gradient}
+          value={value?.gradient}
           onChange={(v) => { handleGradientChange(v, 'radial') }}
         /> : null }
     </div>
