@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkreact_colors_beauty=self.webpackChunkreact_colors_beauty||[]).push([[814],{8252:e=>{e.exports=JSON.parse('{"name":"docusaurus-plugin-content-pages","id":"demo-pages"}')}}]);
