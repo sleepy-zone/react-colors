@@ -2,8 +2,8 @@
 
 颜色选择器，同时支持纯色和渐变色选择。
 
-<p style="text-align: center">
-  <img src="/assets/usage.png" />
+<p>
+  <img src="https://raw.githubusercontent.com/sleepy-zone/react-colors/main/assets/usage.png" />
 </p>
 
 ## Install
