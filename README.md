@@ -1,4 +1,4 @@
-# react-colors
+# react-colors-beauty
 
 颜色选择器，同时支持纯色和渐变色选择。
 
@@ -9,13 +9,13 @@
 ## Install
 
 ```bash
-$ npm i @sleepy/react-colors --save
+$ npm i react-colors-beauty --save
 ```
 
 ## Usage
 
 ```js
-import { ColorsPicker } from '@sleepy/react-colors';
+import { ColorsPicker } from 'react-colors-beauty';
 import { useState } from 'react';
 
 export default function App () {

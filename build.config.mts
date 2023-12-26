@@ -7,8 +7,8 @@ export default defineConfig({
       '@ice/pkg-plugin-docusaurus',
       {
         host: 'localhost',
-        title: '@sleepy/react-colors',
-        navBarTitle: '@sleepy/react-colors',
+        title: 'react-colors-beauty',
+        navBarTitle: 'react-colors-beauty',
         navBarLogo: 'https://raw.githubusercontent.com/sleepy-zone/react-colors/main/assets/logo.png',
         favicon: 'https://raw.githubusercontent.com/sleepy-zone/react-colors/main/assets/favicon.ico'
       }

@@ -14,7 +14,7 @@ sidebar_position: 1
 关于渐变，可以参考[MDN CSS 渐变](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_images/Using_CSS_gradients)。
 
 ```jsx preview
-import { ColorsPicker } from '@sleepy/react-colors';
+import { ColorsPicker } from 'react-colors-beauty';
 import { useState } from 'react';
 
 export default function App () {
