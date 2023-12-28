@@ -35,7 +35,7 @@ export default function App () {
 
   return (
     <div style={{ display: 'flex' }}>
-      <ColorsPicker value={value} onChange={(v) => { console.log(v); setValue(v) }}/>
+      <ColorsPicker angleType="rotate" value={value} onChange={(v) => { console.log(v); setValue(v) }}/>
       <div style={{ width: 258, height: 282, marginLeft: 16,  marginTop: 24, background: calcBackStyle() }} />
     </div>
   )

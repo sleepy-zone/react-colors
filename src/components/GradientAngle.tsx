@@ -9,15 +9,15 @@ type GradientAngelProps = {
 export default function GradientAngel (props: GradientAngelProps) {
   const { angle, onChange } = props;
 
-  const rotateAngle = (newAngle) => {
+  const rotateAngle = (newAngle: number) => {
     onChange?.(newAngle);
   }
 
   return (
     <div className="rcs-angle" onClick={rotateAngle} title="顺时针旋转渐变, 步长为10">
       <InputNumber
-        min={-180}
-        max={180}
+        min={0}
+        max={360}
         suffix="°"
         style={{ width: 48 }}
         value={angle}

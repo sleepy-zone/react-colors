@@ -22,14 +22,9 @@ const handleColor = (c: string | Color) => {
   return c;
 }
 
-export const getDefaultColorValue = (format: ColorFormat) => {
-  return format === 'rgb' ? 'rgb(212, 22, 22)' : '#ff0000';
-} 
-
 export default function Base(props: ComponentProps) {
   const { format = 'rgb', value, onChange, panelRender } = props;
-  const defaultValue = handleColor(getDefaultColorValue(format));
-  const [color, setColor] = useState<Color>(defaultValue);
+  const [color, setColor] = useState<Color>();
 
   const handleChange = (v: Color) => {
     onChange && onChange(getColorStringByFormat(v, format));
@@ -38,8 +33,6 @@ export default function Base(props: ComponentProps) {
   useEffect(() => {
     if (hasValue(value)) {
       setColor(handleColor(value));
-    } else {
-      setColor(defaultValue);
     }
   }, [value]);
 
@@ -51,7 +44,7 @@ export default function Base(props: ComponentProps) {
         const panel = (
           <div className="rcs-panel rcs">
             {innerPanel}
-            <ColorInput value={color} onChange={handleChange} />
+            <ColorInput format={format} value={color} onChange={handleChange} />
           </div>
         );
         if (typeof panelRender === 'function') {

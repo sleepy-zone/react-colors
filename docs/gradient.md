@@ -15,7 +15,7 @@ export default function App () {
   const [value, setValue] = useState();
   return (
     <div>
-      <GradientColorPicker value={value} onChange={(v) => { console.log(v); setValue(v) }} />
+      <GradientColorPicker angleType="rotate" value={value} onChange={(v) => { console.log(v); setValue(v) }} />
     </div>
   )
 }

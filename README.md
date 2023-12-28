@@ -19,6 +19,7 @@ import { ColorsPicker } from 'react-colors-beauty';
 import { useState } from 'react';
 
 export default function App () {
+  const [value, setValue] = useState();
   <ColorsPicker value={value} onChange={setValue} />
 }
 ```
