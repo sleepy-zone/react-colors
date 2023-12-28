@@ -5,17 +5,18 @@ import type { ColorType } from './ColorTypeSelect';
 import { InputNumber, Input } from './Input';
 import type { ValueType } from './Input';
 import { Color } from '@rc-component/color-picker';
-import { getIntColorValue } from '../utils';
+import { ColorFormat, getIntColorValue } from '../utils';
 import type { RGB, HSB } from '@rc-component/color-picker';
 
 type ColorInputProps = {
+  format: ColorFormat;
   value?: Color;
   onChange?: (color: Color) => void;
 }
 
 export default function ColorInput (props: ColorInputProps) {
-  const { value, onChange } = props;
-  const [colorType, setColorType] = useState<ColorType>('HEX');
+  const { format, value, onChange } = props;
+  const [colorType, setColorType] = useState<ColorType>((format.toUpperCase()) as ColorType);
   const [hexValue, setHexValue] = useState('');
   const [rgbValue, setRgbValue] = useState<RGB>();
   const [hsbValue, setHsbValue] = useState<HSB>();
@@ -50,7 +51,7 @@ export default function ColorInput (props: ColorInputProps) {
     const rgb = { ...rgbValue, [key]: v };
     const color = new Color(rgb);
     if (color.isValid) {
-      onChange && onChange(color);
+      onChange?.(color);
     }
   }
 

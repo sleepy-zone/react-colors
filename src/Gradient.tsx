@@ -5,6 +5,7 @@ import type { ISTOP } from './components/ColorStopSlider';
 import Base from './Base';
 import { ColorFormat } from './utils';
 import GradientAngel from './components/GradientAngle';
+import GradientAngelRotate from './components/GradientAngleRotate';
 
 export const getDefaultLinearGradientValue = (format: ColorFormat) => {
   return {
@@ -46,6 +47,7 @@ export type LinearGradient = {
 }
 
 type LinearGradientProps = {
+  angleType?: 'input' | 'rotate'; 
   format?: ColorFormat;
   type?: 'linear' | 'radial';
   value?: LinearGradient;
@@ -53,7 +55,7 @@ type LinearGradientProps = {
 }
 
 export default function LinearGradient (props: LinearGradientProps) {
-  const { format = 'rgb', value, type = 'linear', onChange } = props;
+  const { angleType = 'input', format = 'rgb', value, type = 'linear', onChange } = props;
   const defaultValue = getDefaultLinearGradientValue(format);
   const [gradient, setGradient] = useState(defaultValue);
   const [activeColorStop, setActiveColorStop] = useState<ISTOP>(defaultValue.colorStops[0]);
@@ -124,6 +126,26 @@ export default function LinearGradient (props: LinearGradientProps) {
     });
   }
 
+  const renderAngleInput = () => {
+    if (angleType === 'input') {
+      return (
+        <GradientAngel
+          angle={gradient?.angle}
+          onChange={handleAngleChange}
+        />
+      )
+    }
+    if (angleType === 'rotate') {
+      return (
+        <GradientAngelRotate
+          angle={gradient?.angle}
+          onChange={handleAngleChange}
+        />
+      )
+    }
+    return null;
+  }
+
   useEffect(() => {
     const active = gradient.colorStops.find(item => item === activeColorStop);
     if (!active) setActiveColorStop(gradient.colorStops[0]);
@@ -155,10 +177,8 @@ export default function LinearGradient (props: LinearGradientProps) {
             />
             {
               type === 'linear' ?
-              <GradientAngel
-                angle={gradient?.angle}
-                onChange={handleAngleChange}
-              /> : null
+              renderAngleInput()
+              : null
             }
           </div>
           {innerPanel}

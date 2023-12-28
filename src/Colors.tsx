@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Base, { getDefaultColorValue } from './Base';
+import Base from './Base';
 import Gradient, { getDefaultLinearGradientValue } from './Gradient';
 import type { LinearGradient } from './Gradient';
 import { ColorFormat } from './utils';
 
 type ColorType = 'solid' | 'linear' | 'radial';
 
-type ColorsValue = { type: ColorType, color?: string, gradient?: LinearGradient };
+export type ColorsValue = { type: ColorType, color?: string, gradient?: LinearGradient };
 
 export type ColorsProps = {
+  angleType?: 'input' | 'rotate'; 
   format?: ColorFormat
   value?: ColorsValue;
   onChange?: (v: ColorsValue) => void;
@@ -31,7 +32,7 @@ const Types = [
 ]
 
 export default function Colors (props: ColorsProps) {
-  const { format = 'rgb', value, onChange } = props;
+  const { angleType = 'input', format = 'rgb', value, onChange } = props;
   const [type, setType] = useState<ColorType>('solid');
 
   const handleSolidChange = (color: string) => {
@@ -51,7 +52,6 @@ export default function Colors (props: ColorsProps) {
     };
     if (type === 'solid') {
       delete v.gradient;
-      if (!v.color) v.color = getDefaultColorValue(format);
     } else {
       delete v.color;
       if (!v.gradient) v.gradient = getDefaultLinearGradientValue(format);
@@ -83,6 +83,7 @@ export default function Colors (props: ColorsProps) {
       { 
         type === 'linear' ? 
         <Gradient
+          angleType={angleType}
           format={format}
           type="linear"
           value={value?.gradient}
