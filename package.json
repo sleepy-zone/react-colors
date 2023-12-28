@@ -1,6 +1,6 @@
 {
   "name": "react-colors-beauty",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "颜色选择器，同时支持纯色和渐变色。",
   "files": [
     "esm",

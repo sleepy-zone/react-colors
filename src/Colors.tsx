@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import Base from './Base';
 import Gradient, { getDefaultLinearGradientValue } from './Gradient';
 import type { LinearGradient } from './Gradient';
@@ -33,7 +32,6 @@ const Types = [
 
 export default function Colors (props: ColorsProps) {
   const { angleType = 'input', format = 'rgb', value, onChange } = props;
-  const [type, setType] = useState<ColorType>('solid');
 
   const handleSolidChange = (color: string) => {
     const v: ColorsValue = { type: 'solid', color };
@@ -45,19 +43,16 @@ export default function Colors (props: ColorsProps) {
     onChange?.(v);
   }
 
-  useEffect(() => {
+  const handleTypeChange = (type: ColorType) => {
     const v: ColorsValue = {
       ...value,
       type,
     };
-    if (type === 'solid') {
-      delete v.gradient;
-    } else {
-      delete v.color;
+    if (type !== 'solid') {
       if (!v.gradient) v.gradient = getDefaultLinearGradientValue(format);
     }
     onChange?.(v);
-  }, [type]);
+  }
 
   return (
     <div className="rcs-all rcs">
@@ -65,15 +60,15 @@ export default function Colors (props: ColorsProps) {
         {
           Types.map(item => (
             <div
-              className={`rcs-all-type ${item.value} ${type === item.value ? 'active' : ''}`}
+              className={`rcs-all-type ${item.value} ${value?.type === item.value ? 'active' : ''}`}
               title={item.label}
-              onClick={() => { setType((item.value as ColorType)) }}
+              onClick={() => { handleTypeChange((item.value as ColorType)) }}
             />
           ))
         }
       </div>
       { 
-        type === 'solid' ? 
+        value?.type === 'solid' ? 
         <Base
           format={format}
           value={value?.color}
@@ -81,7 +76,7 @@ export default function Colors (props: ColorsProps) {
         /> : null 
       }
       { 
-        type === 'linear' ? 
+        value?.type === 'linear' ? 
         <Gradient
           angleType={angleType}
           format={format}
@@ -91,7 +86,7 @@ export default function Colors (props: ColorsProps) {
         /> : null 
       }
       {
-        type === 'radial' ? 
+        value?.type === 'radial' ? 
         <Gradient
           format={format}
           type="radial"
