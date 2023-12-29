@@ -131,7 +131,6 @@
 
 .rcs-slider {
   flex: 1;
-  margin-bottom: 2px;
   &-main {
     position: relative;
     width: 100%;
@@ -150,6 +149,20 @@
     border: 2px solid #ffffff;
     cursor: pointer;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.06);
+  }
+}
+.rcs-stop-info {
+  margin-bottom: 6px;
+  padding: 0 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(197,223,223,.8);
+  border-radius: 4px;
+  font-size: 12px;
+  &-del {
+    line-height: 0;
+    cursor: pointer;
   }
 }
 
@@ -198,5 +211,19 @@
         background: radial-gradient(#eeeeee, #ff7916);
       }
     }
+  }
+}
+
+.rcs-preset-colors {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  gap: 6px;
+  .rsc-preset-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
   }
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useMemo, useRef, useEffect } from 'react';
+import { getOffset } from '../utils';
 
 export type ISTOP = {
   color: string;
@@ -16,7 +17,7 @@ interface ColorStopSliderProps {
 }
 
 export default function ColorStopSlider (props: ColorStopSliderProps) {
-  const { colorStop, colorStops, colorStopAdd, colorStopUpdate, colorStopRemove, onColorStopChange } = props;
+  const { colorStop, colorStops, colorStopAdd, colorStopUpdate, onColorStopChange } = props;
   const colorStopDragRef = useRef({
     enable: false,
     lastX: 0
@@ -34,8 +35,8 @@ export default function ColorStopSlider (props: ColorStopSliderProps) {
       style.transform = 'translate(calc(-100% + 1px), -50%)';
     }
     if (stop === colorStop) {
-      style.width = '12px';
-      style.height = '12px';
+      style.width = '13px';
+      style.height = '13px';
     }
     return style;
   }
@@ -43,14 +44,7 @@ export default function ColorStopSlider (props: ColorStopSliderProps) {
   const handleMainClick = (e: React.MouseEvent) => {
     if (colorStopDragRef.current.enable) return;
     const offset = e.nativeEvent.offsetX / (e.target as HTMLDivElement).clientWidth;
-    colorStopAdd?.({ color: '#ff2222', offset });
-  }
-
-  const removeStop = (e: KeyboardEvent) => {
-    const key = e.key.toLowerCase();
-    if (key === 'delete' || key === 'backspace') {
-      colorStopRemove?.();
-    }
+    colorStopAdd?.({ color: '#ff2222', offset: getOffset(offset) });
   }
 
   const handleStopMouseDown = (stop: ISTOP, e: React.MouseEvent) => {
@@ -69,7 +63,7 @@ export default function ColorStopSlider (props: ColorStopSliderProps) {
       colorStopDragRef.current.lastX = e.clientX;
       colorStopUpdate({
         ...colorStop,
-        offset
+        offset: getOffset(offset)
       });
     }
   }
@@ -85,11 +79,9 @@ export default function ColorStopSlider (props: ColorStopSliderProps) {
   }, [colorStops]);
 
   useEffect(() => {
-    document.addEventListener('keydown', removeStop);
     document.addEventListener('mouseup', handleStopMouseUp);
     document.addEventListener('mousemove', handleStopMouseMove);
     return () => {
-      document.removeEventListener('keydown', removeStop);
       document.removeEventListener('mouseup', handleStopMouseUp);
       document.removeEventListener('mousemove', handleStopMouseMove);
     }

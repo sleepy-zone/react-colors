@@ -28,3 +28,9 @@ export const getColorStringByFormat = (color: Color, format: ColorFormat) => {
 export const hasValue = (v: any) => {
   return v !== undefined;
 }
+
+export const getOffset = (num: number) => {
+  if (num >= 1) num = 1;
+  if (num <= 0) num = 0;
+  return Math.round(num * 100) / 100;
+}

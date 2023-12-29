@@ -4,11 +4,11 @@ import ColorPicker from '@rc-component/color-picker';
 import { Color, getColorStringByFormat, hasValue } from './utils';
 import ColorInput from './components/ColorInput';
 import type { ColorFormat } from './utils';
+import PresetColors from './components/PresetColors';
 
 import './rc-color-picker.less';
 import './index.less';
 
-export { Color } from '@rc-component/color-picker';
 export interface ComponentProps {
   format?: ColorFormat;
   value?: string | Color;
@@ -30,6 +30,11 @@ export default function Base(props: ComponentProps) {
     onChange && onChange(getColorStringByFormat(v, format));
   }
 
+  const handlePresetChange = (v: string) => {
+    const c = new Color(v);
+    onChange && onChange(getColorStringByFormat(c, format));
+  }
+
   useEffect(() => {
     if (hasValue(value)) {
       setColor(handleColor(value));
@@ -45,6 +50,7 @@ export default function Base(props: ComponentProps) {
           <div className="rcs-panel rcs">
             {innerPanel}
             <ColorInput format={format} value={color} onChange={handleChange} />
+            <PresetColors value={value} onChange={handlePresetChange}  />
           </div>
         );
         if (typeof panelRender === 'function') {
