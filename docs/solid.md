@@ -20,3 +20,13 @@ export default function App () {
   )
 }
 ```
+
+## Props
+
+| Name                | Type         | Default |  Description  |
+|---------------------|--------------| ----------------------- |---------------------------------------------------------------------------|
+| value               | `string`  | | |                                                                     
+| onChange | `(color: string) => void` | | 颜色变化的回调 |
+| type | `linear` or `radial` | `linear` | 渐变类型 |
+| format | `rgb` or `hex` | `rgb` | 返回的颜色格式 |
+| panelRender  | `(panel: React.ReactElement) => React.ReactElement` |  | 自定义渲染面板 |

@@ -14,7 +14,7 @@ export default function GradientAngel (props: GradientAngelProps) {
   }
 
   return (
-    <div className="rcs-angle" onClick={rotateAngle} title="顺时针旋转渐变, 步长为10">
+    <div className="rcs-angle" title="顺时针旋转渐变, 步长为10">
       <InputNumber
         min={0}
         max={360}

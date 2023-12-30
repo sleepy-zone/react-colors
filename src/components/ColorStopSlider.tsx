@@ -63,7 +63,7 @@ export default function ColorStopSlider (props: ColorStopSliderProps) {
       colorStopDragRef.current.lastX = e.clientX;
       colorStopUpdate({
         ...colorStop,
-        offset: getOffset(offset)
+        offset
       });
     }
   }

@@ -9,6 +9,7 @@ type ColorType = 'solid' | 'linear' | 'radial';
 export type ColorsValue = { type: ColorType, color?: string, gradient?: LinearGradient };
 
 export type ColorsProps = {
+  defaultRotation?: number;
   angleType?: 'input' | 'rotate'; 
   format?: ColorFormat
   value?: ColorsValue;
@@ -31,7 +32,7 @@ const Types = [
 ]
 
 export default function Colors (props: ColorsProps) {
-  const { angleType = 'input', format = 'rgb', value, onChange } = props;
+  const { angleType = 'rotate', format = 'rgb', value, onChange, defaultRotation } = props;
 
   const handleSolidChange = (color: string) => {
     const v: ColorsValue = { type: 'solid', color };
@@ -88,6 +89,7 @@ export default function Colors (props: ColorsProps) {
       {
         value?.type === 'radial' ? 
         <Gradient
+          defaultRotation={defaultRotation}
           format={format}
           type="radial"
           value={value?.gradient}

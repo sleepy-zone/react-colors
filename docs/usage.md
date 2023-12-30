@@ -1,5 +1,5 @@
 ---
-sidebar_label: 使用
+sidebar_label: 使用选择器
 sidebar_position: 1
 ---
 
@@ -11,7 +11,7 @@ sidebar_position: 1
 2. 线性渐变支持配置色标（color stop）和角度（渐变方向）
 3. 径向渐变支持配置色标（color stop），暂不支持渐变中心配置
 
-关于渐变，可以参考[MDN CSS 渐变](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_images/Using_CSS_gradients)。
+关于渐变，可以参考 [MDN CSS 渐变](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_images/Using_CSS_gradients)。
 
 ```jsx preview
 import { ColorsPicker } from 'react-colors-beauty';
@@ -34,10 +34,44 @@ export default function App () {
   } 
 
   return (
-    <div style={{ display: 'flex' }}>
-      <ColorsPicker angleType="rotate" value={value} onChange={(v) => { console.log(v); setValue(v) }}/>
-      <div style={{ width: 258, height: 282, marginLeft: 16,  marginTop: 24, background: calcBackStyle() }} />
+    <div
+      style={{ 
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%', 
+        height: 600,
+        borderRadius: 8,
+        background: calcBackStyle() 
+      }}>
+    <ColorsPicker value={value} onChange={(v) => { console.log(v); setValue(v) }}/>
     </div>
   )
 }
 ```
+
+## Props
+
+| Name                | Type         | Default |  Description  |
+|---------------------|--------------| ----------------------- |---------------------------------------------------------------------------|
+| value               | `ColorsValue`  | |  ColorsValue 见下文 |                                                                     
+| onChange | `(value: ColorsValue) => void` | | 颜色变化的回调 |
+| format | `rgb` or `hex` | `rgb` | 返回的颜色格式 |
+| angleType | `rotate` or `input` | `rotate` | 配置线性渐变角度，使用点击固定旋转角度还是输入精确角度 |
+| defaultRotation | number | `45` | angleType 为 rotate 时，点击固定旋转角度的默认值 |
+
+## ColorsValue
+
+`type ColorsValue = { type: ColorType, color?: string, gradient?: LinearGradient }`
+
+`type ColorType = 'solid' | 'linear' | 'radial';`
+
+`type LinearGradient = {
+  colorStops: ISTOP[];
+  angle: number;
+}`
+
+`export type ISTOP = {
+  color: string;
+  offset: number;
+}`

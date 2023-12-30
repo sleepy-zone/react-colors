@@ -52,10 +52,11 @@ type LinearGradientProps = {
   type?: 'linear' | 'radial';
   value?: LinearGradient;
   onChange?: (lg: LinearGradient) => void;
+  defaultRotation?: number;
 }
 
 export default function LinearGradient (props: LinearGradientProps) {
-  const { angleType = 'input', format = 'rgb', value, type = 'linear', onChange } = props;
+  const { angleType = 'rotate', format = 'rgb', value, type = 'linear', onChange, defaultRotation = 45 } = props;
   const defaultValue = getDefaultLinearGradientValue(format);
   const [gradient, setGradient] = useState(defaultValue);
   const [activeColorStop, setActiveColorStop] = useState<ISTOP>(defaultValue.colorStops[0]);
@@ -140,6 +141,7 @@ export default function LinearGradient (props: LinearGradientProps) {
         <GradientAngelRotate
           angle={gradient?.angle}
           onChange={handleAngleChange}
+          defaultRotation={defaultRotation}
         />
       )
     }
@@ -182,14 +184,19 @@ export default function LinearGradient (props: LinearGradientProps) {
             }
           </div>
           <div className="rcs-stop-info">
-            <span className="rcs-stop-info-offset">offset: {Math.round((activeColorStop?.offset || 0) * 100)}%</span>
+            <div style={{ display: 'flex', alignItems: 'center' }} title="色标偏移">
+              <span style={{ lineHeight: 0 }}>
+                <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3861" width="14" height="14"><path d="M866.432 175.232a42.666667 42.666667 0 0 0-60.330667-60.330667l-691.2 691.2a42.666667 42.666667 0 1 0 60.330667 60.330667l691.2-691.2zM878.933333 281.6h-85.333333v85.333333h85.333333v-85.333333zM281.6 793.6h85.333333v85.333333h-85.333333v-85.333333zM878.933333 452.266667h-85.333333v85.333333h85.333333v-85.333333zM793.6 622.933333h85.333333v85.333334h-85.333333v-85.333334zM878.933333 793.6h-85.333333v85.333333h85.333333v-85.333333zM622.933333 793.6h85.333334v85.333333h-85.333334v-85.333333zM537.6 793.6h-85.333333v85.333333h85.333333v-85.333333z" fill="#707070"></path></svg>
+              </span>
+              <span style={{ lineHeight: 0, marginLeft: 2 }}>{Math.round((activeColorStop?.offset || 0) * 100)}%</span>
+            </div>
             {
               type === 'linear' && angleType === 'rotate' ?
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }} title="渐变角度">
                 <span style={{ lineHeight: 0 }}>
-                <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6894" width="14px" height="14px"><path d="M526.048 866.88c2.432-49.92-8.224-91.552-31.552-125.952-24.896-36.704-63.264-63.68-116.224-80.96L203.2 866.88H526.08z m64.064 0h338.56v64H65.344L771.52 96l48.864 41.344-398.08 470.56c54.048 21.792 96 54.144 125.12 97.056 31.008 45.664 45.12 99.936 42.656 161.856z" fill="#707070" p-id="6895"></path></svg>
+                  <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6894" width="14px" height="14px"><path d="M526.048 866.88c2.432-49.92-8.224-91.552-31.552-125.952-24.896-36.704-63.264-63.68-116.224-80.96L203.2 866.88H526.08z m64.064 0h338.56v64H65.344L771.52 96l48.864 41.344-398.08 470.56c54.048 21.792 96 54.144 125.12 97.056 31.008 45.664 45.12 99.936 42.656 161.856z" fill="#707070"></path></svg>
                 </span>
-                <span style={{ lineHeight: 0 }}>{gradient?.angle}°</span>
+                <span style={{ lineHeight: 0, marginLeft: 2 }}>{gradient?.angle}°</span>
               </div> : null
             }
             <span className="rcs-stop-info-del" onClick={handleColorStopRemove}>
