@@ -55,7 +55,7 @@ type LinearGradientProps = {
   defaultRotation?: number;
 }
 
-export default function LinearGradient (props: LinearGradientProps) {
+export default function Gradient (props: LinearGradientProps) {
   const { angleType = 'rotate', format = 'rgb', value, type = 'linear', onChange, defaultRotation = 45 } = props;
   const defaultValue = getDefaultLinearGradientValue(format);
   const [gradient, setGradient] = useState(defaultValue);

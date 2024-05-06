@@ -2,6 +2,14 @@ import { defineConfig } from '@ice/pkg';
 
 // https://pkg.ice.work/reference/config/
 export default defineConfig({
+  transform: {
+    formats: ['esm', 'es2017'],
+  },
+  bundle: {
+    formats: ['umd'],
+    name: 'ReactColorsBeauty',
+    development: true,
+  },
   plugins: [
     [
       '@ice/pkg-plugin-docusaurus',

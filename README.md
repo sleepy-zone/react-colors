@@ -26,6 +26,8 @@ $ yarn add react-colors-beauty
 import { useState } from 'react';
 import { ColorsPicker } from 'react-colors-beauty';
 
+import 'react-colors-beauty/esm/index.less';
+
 export default function App () {
   const [value, setValue] = useState({ type: 'solid', color: 'rgb(0,0,0)' });
   <ColorsPicker value={value} onChange={setValue} />
