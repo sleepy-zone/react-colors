@@ -19,4 +19,4 @@ export const Input = (props: InputProps) => {
   );
 }
 
-export { ValueType } from 'rc-input-number';
+export type { ValueType } from 'rc-input-number';
